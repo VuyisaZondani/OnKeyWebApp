@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using OnKeyWebApp.Data.Enum;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnKeyWebApp.Models
 {
@@ -7,10 +9,11 @@ namespace OnKeyWebApp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Email { get; set; }
-        [ForeignKey("AddressId")]
-        public int AddressId { get; set; }
-        public Address? Address { get; set; }
+        [Display(Name ="Username")]
+        public string UserName { get; set; }
+        public MusicalBackground MusicalBackground { get; set; }
+        public string? Street { get; set; }
+        public string? Neigbourhood { get; set; }
         public string? ProfilePicUrl { get; set; }
         public IFormFile Image { get; set; }
     }
