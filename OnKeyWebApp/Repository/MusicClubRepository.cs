@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnKeyWebApp.Data;
+using OnKeyWebApp.Data.Interface;
 using OnKeyWebApp.Models;
 
 namespace OnKeyWebApp.Repository
