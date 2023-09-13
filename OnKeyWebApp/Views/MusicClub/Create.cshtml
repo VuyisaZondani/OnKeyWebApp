@@ -1,0 +1,43 @@
+﻿@using OnKeyWebApp.Data.Enum
+@using OnKeyWebApp.ViewModel
+@model CreateMusicClubViewModel
+
+<form>
+    <h1>Create your own Music Club</h1>
+    <div class="form-row center">
+        <div class="form-group">
+            <label asp-for="Title">Name of Music Club</label>
+            <input asp-for="Title" class="form-control" placeholder="Music Club Name">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description of the Music Club</label>
+            <input asp-for="Description" class="form-control" placeholder="Desciption">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Genre">Pick your Genre</label>
+        <select asp-for="Genre" asp-items="@Html.GetEnumSelectList<Genre>()" class="form-control">
+            <option selected="selected" value="">--Select--</option>
+        </select>
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street">Street</label>
+        <input asp-for="Street" class="form-control" placeholder="Street">
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Neighbourhood">Neighbourhood</label>
+        <input asp-for="Street" class="form-control" placeholder="Neighbourhood">
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="file" class="form-control" placeholder="image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+   
+    <button type="submit" class="btn btn-primary">Create Club</button>
+</form>
