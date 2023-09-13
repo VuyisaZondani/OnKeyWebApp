@@ -1,11 +1,18 @@
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using OnKeyWebApp.Data;
+using OnKeyWebApp.Data.Interface;
+using OnKeyWebApp.Repository;
+using OnKeyWebApp.Service;
+using OnKeyWebApp.Data.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IMusicClubRepository, MusicClubRepository>();
+builder.Services.AddScoped<IPhotoServices, PhotoService>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
