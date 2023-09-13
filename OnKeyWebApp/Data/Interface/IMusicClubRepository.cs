@@ -1,6 +1,6 @@
 ﻿using OnKeyWebApp.Models;
 
-namespace OnKeyWebApp.Data
+namespace OnKeyWebApp.Data.Interface
 {
     public interface IMusicClubRepository
     {
