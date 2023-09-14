@@ -8,14 +8,15 @@ namespace OnKeyWebApp.Controllers
     public class MusicClubController : Controller
     {
         private readonly IMusicClubRepository _musicClubRepository;
-        //private readonly IHttpContextAccessor _httpContextAccessor;
+       
         private readonly IPhotoServices _photoServices;
 
         public MusicClubController(IMusicClubRepository musicClubRepository, IPhotoServices photoServices)
         {
             _musicClubRepository = musicClubRepository;
-           //_httpContextAccessor = httpContextAccessor;
-           _photoServices = photoServices;
+           
+            _photoServices = photoServices;
+          
         }
         public async Task<IActionResult> Index()
         {
@@ -32,7 +33,7 @@ namespace OnKeyWebApp.Controllers
                 Genre = club.Genre,
                 Street = club.Street,
                 Neighbourhood = club.Neighbourhood,
-                ProfilePicUrl = club.ProfilePicUrl,
+             
                 
             };
             return View(club);
@@ -40,10 +41,11 @@ namespace OnKeyWebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-        //    var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-        //    var createMusicClubViewModel = new CreateMusicClubViewModel { AppUserId = currentUserId };
-        //    return View(createMusicClubViewModel);
+            ///*var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId()*/;
+            //var createMusicClubViewModel = new CreateMusicClubViewModel { AppUserId = currentUserId };
+            //return View(createMusicClubViewModel);
             return View();
+           
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateMusicClubViewModel createMusicClubViewModel)
