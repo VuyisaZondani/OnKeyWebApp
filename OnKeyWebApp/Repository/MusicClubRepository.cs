@@ -16,7 +16,8 @@ namespace OnKeyWebApp.Repository
 
         public bool Add(MusicClub musicClub)
         {
-            throw new NotImplementedException();
+            _context.Add(musicClub);
+            return Save();
         }
 
         public bool Delete(MusicClub musicClub)
@@ -36,7 +37,8 @@ namespace OnKeyWebApp.Repository
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
 
         public bool Update(MusicClub musicClub)
