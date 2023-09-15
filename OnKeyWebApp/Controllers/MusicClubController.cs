@@ -53,7 +53,7 @@ namespace OnKeyWebApp.Controllers
             if(ModelState.IsValid)
             {
                 var result = await _photoServices.AddPhotoAsync(createMusicClubViewModel.Image);
-                var club = new MusicClub
+                var musicClub = new MusicClub
                 {
                     Title = createMusicClubViewModel.Title,
                     Description = createMusicClubViewModel.Description,
@@ -63,7 +63,7 @@ namespace OnKeyWebApp.Controllers
                     ProfilePicUrl = result.Url.ToString()
                     
                 };
-                _musicClubRepository.Add(club);
+                _musicClubRepository.Add(musicClub);
                 return RedirectToAction("Index");
             }
             else
