@@ -30,10 +30,7 @@ namespace OnKeyWebApp.Repository
             return await _context.MusicClubs.ToListAsync();
         }
 
-        public Task<MusicClub> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<MusicClub> GetByIdAsync(int id) => await _context.MusicClubs.FirstOrDefaultAsync(x => x.Id == id);
 
         public bool Save()
         {

@@ -8,20 +8,20 @@ namespace OnKeyWebApp.Controllers
     public class MusicClubController : Controller
     {
         private readonly IMusicClubRepository _musicClubRepository;
-       
+
         private readonly IPhotoServices _photoServices;
 
         public MusicClubController(IMusicClubRepository musicClubRepository, IPhotoServices photoServices)
         {
             _musicClubRepository = musicClubRepository;
-           
+
             _photoServices = photoServices;
-          
+
         }
         public async Task<IActionResult> Index()
         {
-           IEnumerable<MusicClub> musicClubs = await _musicClubRepository.GetAllMusicClubs();
-           return View(musicClubs);
+            IEnumerable<MusicClub> musicClubs = await _musicClubRepository.GetAllMusicClubs();
+            return View(musicClubs);
         }
         public async Task<IActionResult> Detail(int Id)
         {
@@ -33,8 +33,8 @@ namespace OnKeyWebApp.Controllers
                 Genre = club.Genre,
                 Street = club.Street,
                 Neighbourhood = club.Neighbourhood,
-             
-                
+
+
             };
             return View(club);
         }
@@ -45,12 +45,12 @@ namespace OnKeyWebApp.Controllers
             //var createMusicClubViewModel = new CreateMusicClubViewModel { AppUserId = currentUserId };
             //return View(createMusicClubViewModel);
             return View();
-           
+
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateMusicClubViewModel createMusicClubViewModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = await _photoServices.AddPhotoAsync(createMusicClubViewModel.Image);
                 var musicClub = new MusicClub
@@ -61,7 +61,7 @@ namespace OnKeyWebApp.Controllers
                     Street = createMusicClubViewModel.Street,
                     Neighbourhood = createMusicClubViewModel.Neighbourhood,
                     ProfilePicUrl = result.Url.ToString()
-                    
+
                 };
                 _musicClubRepository.Add(musicClub);
                 return RedirectToAction("Index");
@@ -74,6 +74,23 @@ namespace OnKeyWebApp.Controllers
             return View(createMusicClubViewModel);
         }
 
-        
+        public async Task<IActionResult> Edit(int id)
+        {
+            var musicClub = await _musicClubRepository.GetByIdAsync(id);
+            if (musicClub == null) return View("Error");
+
+            var musicClubV = new CreateMusicClubViewModel()
+            {
+                Title = musicClub.Title,
+                Description = musicClub.Description,
+                Genre = musicClub.Genre,
+                Street = musicClub.Street,
+                Neighbourhood = musicClub.Neighbourhood,
+                ProfilePicUrl = musicClub.ProfilePicUrl,
+                AppUserId = musicClub.AppUserId
+            };
+            return View();
+        }
+
     }
 }

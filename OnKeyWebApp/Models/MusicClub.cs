@@ -13,6 +13,7 @@ namespace OnKeyWebApp.Models
         public string? Street { get; set; }
         public string? Neighbourhood { get; set; }
         public string? ProfilePicUrl { get; set; }
+        public string? AppUserId { get; set;}
         //public IFormFile Image { get; set; }
         //public List<MusicClub_Event> MusicClub_Events { get; set; }
     }
