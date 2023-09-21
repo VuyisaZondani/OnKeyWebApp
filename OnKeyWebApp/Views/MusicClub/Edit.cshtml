@@ -3,7 +3,7 @@
 @model CreateMusicClubViewModel
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
-
+    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
     <h1>Edit your own Music Club</h1>
     <div class="form-row center">
         <div class="form-group">
