@@ -30,7 +30,7 @@ namespace OnKeyWebApp.Repository
             return await _context.MusicClubs.ToListAsync();
         }
 
-        public async Task<MusicClub> GetByIdAsync(int id) => await _context.MusicClubs.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<MusicClub> GetByIdAsync(int id) => await _context.MusicClubs.FirstOrDefaultAsync (x => x.Id == id);
 
         public bool Save()
         {
@@ -40,7 +40,8 @@ namespace OnKeyWebApp.Repository
 
         public bool Update(MusicClub musicClub)
         {
-            throw new NotImplementedException();
+            _context.Update(musicClub);
+            return Save();
         }
     }
 }
