@@ -48,7 +48,7 @@ namespace OnKeyWebApp.Controllers
            
 
         }
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateMusicClubViewModel createMusicClubViewModel)
         {
             if (ModelState.IsValid)
@@ -74,13 +74,13 @@ namespace OnKeyWebApp.Controllers
 
             return View(createMusicClubViewModel);
         }
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var musicClub = await _musicClubRepository.GetByIdAsync(id);
             if (musicClub == null) return View("Error");
 
-            var musicClubV = new CreateMusicClubViewModel()
+            var musicClubVM = new EditMusicClubViewModel()
             {
                 Title = musicClub.Title,
                 Description = musicClub.Description,
@@ -90,13 +90,15 @@ namespace OnKeyWebApp.Controllers
                 ProfilePicUrl = musicClub.ProfilePicUrl,
                 AppUserId = musicClub.AppUserId
             };
-            return View();
+            return View(musicClubVM);
         }
+
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CreateMusicClubViewModel createMusicClubVM)
+        public async Task<IActionResult> Edit(int id, EditMusicClubViewModel editMusicClubViewModel)
         {
             if(!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Failed to edit music club");
                 return View("Error");
             }
             var userMC = await _musicClubRepository.GetByIdAsync(id);
@@ -109,28 +111,24 @@ namespace OnKeyWebApp.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", "Could not delete photo");
-                    return View(createMusicClubVM);
+                    return View(editMusicClubViewModel);
                 }
-
-            var photoResult = await _photoServices.AddPhotoAsync(createMusicClubVM.Image);
-           
+            var photoResult = await _photoServices.AddPhotoAsync(editMusicClubViewModel.Image);
 
             var musicClub = new MusicClub
             {
                 Id = id,
-                Title = createMusicClubVM.Title,
-                Description = createMusicClubVM.Description,
-                ProfilePicUrl = photoResult.Url.ToString(),
-                Genre = createMusicClubVM.Genre,
-                Street = createMusicClubVM.Street,
-                Neighbourhood = createMusicClubVM.Neighbourhood,
+                Title = editMusicClubViewModel.Title,
+                Description = editMusicClubViewModel.Description,
+                Genre = editMusicClubViewModel.Genre,
+                Street = editMusicClubViewModel.Street,
+                Neighbourhood = editMusicClubViewModel.Neighbourhood,
+                ProfilePicUrl = photoResult.Url.ToString()
 
             };
 
             _musicClubRepository.Update(musicClub);
-
             return RedirectToAction("Index");
         }
-
     }
 }
