@@ -40,14 +40,14 @@ namespace OnKeyWebApp.Controllers
             return View(club);
         }
         [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var createMusicClubViewModel = new CreateMusicClubViewModel { AppUserId = currentUserId };
-            return View(createMusicClubViewModel);
+        //public async Task<IActionResult> Create()
+        //{
+        //    //var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+        //    //var createMusicClubViewModel = new CreateMusicClubViewModel { AppUserId = currentUserId };
+        //    return View();
            
 
-        }
+        //}
         [HttpPost]
         public async Task<IActionResult> Create(CreateMusicClubViewModel createMusicClubViewModel)
         {
@@ -80,7 +80,7 @@ namespace OnKeyWebApp.Controllers
             var musicClub = await _musicClubRepository.GetByIdAsync(id);
             if (musicClub == null) return View("Error");
 
-            var musicClubVM = new EditMusicClubViewModel()
+            var musicClubVM = new CreateMusicClubViewModel()
             {
                 Title = musicClub.Title,
                 Description = musicClub.Description,
@@ -101,7 +101,7 @@ namespace OnKeyWebApp.Controllers
                 ModelState.AddModelError("", "Failed to edit music club");
                 return View("Error");
             }
-            var userMC = await _musicClubRepository.GetByIdAsync(id);
+            var userMC = await _musicClubRepository.GetByIdAsyncNoTracking(id);
 
             if (userMC != null)
                 try
@@ -128,6 +128,24 @@ namespace OnKeyWebApp.Controllers
             };
 
             _musicClubRepository.Update(musicClub);
+            return RedirectToAction("Index");
+        }
+
+        public  async Task<IActionResult> Delete(int id)
+        {
+            var musicClubDetails = await _musicClubRepository.GetByIdAsync(id);
+            if (musicClubDetails == null) return View("Error");
+
+            return View(musicClubDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteClub(int id)
+        {
+            var musicClubDetails = await _musicClubRepository.GetByIdAsync(id);
+            if (musicClubDetails == null) return View("Error");
+
+            _musicClubRepository.Delete(musicClubDetails);
             return RedirectToAction("Index");
         }
     }

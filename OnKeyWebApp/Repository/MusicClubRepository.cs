@@ -22,7 +22,8 @@ namespace OnKeyWebApp.Repository
 
         public bool Delete(MusicClub musicClub)
         {
-            throw new NotImplementedException();
+            _context.Remove(musicClub);
+            return Save();
         }
 
         public async Task<IEnumerable<MusicClub>> GetAllMusicClubs()
@@ -31,6 +32,7 @@ namespace OnKeyWebApp.Repository
         }
 
         public async Task<MusicClub> GetByIdAsync(int id) => await _context.MusicClubs.FirstOrDefaultAsync (x => x.Id == id);
+        public async Task<MusicClub> GetByIdAsyncNoTracking(int id) => await _context.MusicClubs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         public bool Save()
         {
