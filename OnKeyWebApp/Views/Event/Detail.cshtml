@@ -1,5 +1,34 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Event
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        More information about the event
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.ProfilePicUrl" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">Here's some details:</h3>
+            <p>@Model.Title</p>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Location</h3>
+            <p>@Model.Location</p>
+        </div>
+
+    </div>
+    <!-- /.row -->
+    
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
